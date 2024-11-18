@@ -1,0 +1,82 @@
+# Byte-compiled and cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment directory
+venv/
+env/
+ENV/
+.venv/
+.ENV/
+
+# Distribution and build directories
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test and coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+coverage.xml
+*.cover
+*.py,cover
+.cache
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# PyCharm project files
+.idea/
+
+# VSCode settings
+.vscode/
+
+# macOS-specific files
+.DS_Store
+
+# Windows-specific files
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Python-specific environment files
+*.env
+*.env.*
+*.ini
+*.cfg
+
+# Log files
+*.log
+*.out
+*.err
+
+# Temporary files
+*.bak
+*.swp
+*.tmp
+*.temp
+*.~*
+
+# Docker-related files
+*.dockerignore
+docker-compose.override.yml
+
+# Flask/Django settings (if applicable)
+instance/
+*.sqlite3
+
+# Ignore compiled C extensions
+*.so
+
+# Ignore dependencies
+# Uncomment if you want to ensure dependencies are installed via `requirements.txt`
+# /site-packages/
+

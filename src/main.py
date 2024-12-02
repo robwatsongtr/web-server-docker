@@ -17,6 +17,15 @@ def root() -> dict:
     """
     return { "msg": "Server is Running!"}
 
+@api_router.get("/lcproblems/", status_code=200)
+def fetch_all_problems() -> dict:
+    """
+    Fetch all Leetcode probelms
+    """
+    result = [ prob for prob in PROBLEMS]
+
+    return { "results": result }
+
 # the '*' in the parameter list means all parameters after it must be specified by name when called
 @api_router.get("/lcproblems/{problem_id}", status_code=200)
 def fetch_problem(problem_id: int) -> dict:
@@ -24,9 +33,10 @@ def fetch_problem(problem_id: int) -> dict:
     Fetch single Leetcode problem by ID
     """
     result = [ problem for problem in PROBLEMS if problem['id'] == problem_id ]
+
     if result:
         return result[0]
-    
+
 @api_router.get("/search/", status_code=200)
 def search_problems( keyword: Optional[str] = None, max_results: Optional[int] = 10 ) -> dict:
     """
@@ -40,10 +50,8 @@ def search_problems( keyword: Optional[str] = None, max_results: Optional[int] =
     return { "results": list(results)[:max_results]}
 
 
-
 # register the api router with the FastAPI object running the show 
 app.include_router(api_router) 
-
 
 if __name__ == "__main__":
     import uvicorn

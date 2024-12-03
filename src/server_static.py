@@ -22,7 +22,7 @@ def fetch_all_problems() -> Dict[str, List[Problem]]:
     """
     Fetch all Leetcode probelms
     """
-    result = [ prob for prob in PROBLEMS]
+    result = [ prob for prob in PROBLEMS ]
 
     return { "results": result }
 
@@ -45,7 +45,7 @@ def search_problems(
     """
     if not keyword: 
         return { "results": PROBLEMS[:max_results] }
-    # filters based on condition of keyword matching in problem_name
+    # this is a generator inside the filter, it lazy evaluates (ie streams)
     results = filter(lambda problem: keyword.lower() in problem['problem_name'].lower(), PROBLEMS)
 
     return { "results": list(results)[:max_results] }

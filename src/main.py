@@ -1,6 +1,6 @@
 from fastapi import FastAPI, APIRouter
-from problems import PROBLEMS
-from typing import Optional
+from problems import PROBLEMS, Problem
+from typing import Optional, Dict, List 
 
 app = FastAPI(
     title="Leetcode Problem Tracker API", openapi_url="/openapi.json"
@@ -15,10 +15,10 @@ def root() -> dict:
     """
     Root GET 
     """
-    return { "msg": "Server is Running!"}
+    return { "msg": "Server is Running!" }
 
 @api_router.get("/lcproblems/", status_code=200)
-def fetch_all_problems() -> dict:
+def fetch_all_problems() -> Dict[str, List[Problem]]:
     """
     Fetch all Leetcode probelms
     """
@@ -26,19 +26,20 @@ def fetch_all_problems() -> dict:
 
     return { "results": result }
 
-# the '*' in the parameter list means all parameters after it must be specified by name when called
+# FastAPI will use path parameter given the variable in path matching with function param
 @api_router.get("/lcproblems/{problem_id}", status_code=200)
-def fetch_problem(problem_id: int) -> dict:
+def fetch_problem(*, problem_id: int) -> Dict[str, List[Problem]]:
     """
     Fetch single Leetcode problem by ID
     """
     result = [ problem for problem in PROBLEMS if problem['id'] == problem_id ]
 
-    if result:
-        return result[0]
+    return { "results": result } if result else { "results": [] }
 
+# based on the func parameters and the lack of a variable in the path FastAPI will use query string
 @api_router.get("/search/", status_code=200)
-def search_problems( keyword: Optional[str] = None, max_results: Optional[int] = 10 ) -> dict:
+def search_problems( 
+    keyword: Optional[str] = None, max_results: Optional[int] = 10 ) -> Dict[str, List[Problem]]:
     """
     Search for Leetcode problems based on name keyword
     """
@@ -47,7 +48,9 @@ def search_problems( keyword: Optional[str] = None, max_results: Optional[int] =
     # filters based on condition of keyword matching in problem_name
     results = filter(lambda problem: keyword.lower() in problem['problem_name'].lower(), PROBLEMS)
 
-    return { "results": list(results)[:max_results]}
+    return { "results": list(results)[:max_results] }
+
+
 
 
 # register the api router with the FastAPI object running the show 

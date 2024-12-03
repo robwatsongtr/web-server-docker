@@ -1,4 +1,12 @@
-PROBLEMS = [
+from typing import List, TypedDict
+
+class Problem(TypedDict):
+    id: int
+    lc_num: int
+    problem_name: str
+    problem_solution: str
+
+PROBLEMS: List[Problem] = [
     {
         'id': 1,
         'lc_num': 27,

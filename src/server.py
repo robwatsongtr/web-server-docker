@@ -3,18 +3,18 @@ from typing import Annotated
 from sqlmodel import Field, Session, SQLModel, create_engine, select
 from contextlib import asynccontextmanager
 
-app = FastAPI(
-    title="Leetcode Problem Tracker API", openapi_url="/openapi.json"
-)
-
-# Used to group API endpoints 
-api_router = APIRouter()
-
 class Problem(SQLModel, table=True):
     id: int | None = Field(default=None, primary_key=True)
     lc_num: int
     problem_name: str
     problem_solution: str
+
+app = FastAPI(
+    title="Leetcode Problem Tracker API with db", openapi_url="/openapi.json"
+)
+
+# Used to group API endpoints 
+api_router = APIRouter()
 
 sqlite_file_name = "database.db"
 sqlite_url = f"sqlite:///{sqlite_file_name}"
